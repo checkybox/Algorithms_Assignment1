@@ -1,8 +1,7 @@
 package org.example;
 
-import org.example.algorithms.MergeSort;
-import org.example.algorithms.QuickSort;
-import org.example.algorithms.DeterministicSelect;
+import org.example.algorithms.*;
+import org.example.algorithms.ClosestPairOfPoints.Point;
 import util.Metrics;
 import java.util.Random;
 
@@ -24,6 +23,18 @@ public class Main {
         return arr;
     }
 
+    public static Point[] generateRandomPoints(int size) {
+        Random random = new Random();
+        Point[] points = new Point[size];
+        for (int i = 0; i < size; i++) {
+            points[i] = new Point(
+                random.nextDouble() * 10000,
+                random.nextDouble() * 10000
+            );
+        }
+        return points;
+    }
+
     public static void testMergeSort() {
         int[] sizes = {10, 100, 500, 1000, 5000, 10000, 50000, 100000};
         String csvFile = "mergesort_results.csv";
@@ -42,7 +53,7 @@ public class Main {
                 metrics.getMaxDepth()
             );
         }
-        System.out.println("Results written to " + csvFile);
+        System.out.println("Results written to " + csvFile + "\n");
     }
 
     public static void testQuickSort() {
@@ -63,7 +74,7 @@ public class Main {
                 metrics.getMaxDepth()
             );
         }
-        System.out.println("Results written to " + csvFile);
+        System.out.println("Results written to " + csvFile + "\n");
     }
 
     public static void testDeterministicSelect() {
@@ -71,7 +82,6 @@ public class Main {
         String csvFile = "deterministicselect_results.csv";
         initializeCsv(csvFile, "DeterministicSelect");
         System.out.println("DeterministicSelect,array size,time(ns),comparisons,swaps,maxdepth");
-        Random random = new Random();
         for (int n : sizes) {
             int[] arr = generateRandomArray(n);
             int k = n / 2; // median (0-based)
@@ -86,12 +96,42 @@ public class Main {
                 metrics.getMaxDepth()
             );
         }
-        System.out.println("Results written to " + csvFile);
+        System.out.println("Results written to " + csvFile + "\n");
+    }
+
+    public static void testClosestPairOfPoints() {
+        int[] sizes = {10, 100, 500, 1000, 5000, 10000};
+        String csvFile = "closestpair_results.csv";
+        initializeCsv(csvFile, "ClosestPairOfPoints");
+        System.out.println("ClosestPairOfPoints,array size,time(ns),comparisons,maxdepth,distance");
+        for (int n : sizes) {
+            Point[] points = generateRandomPoints(n);
+            Metrics metrics = new Metrics();
+            double dist = ClosestPairOfPoints.minDistance(points, metrics);
+            try (java.io.FileWriter fw = new java.io.FileWriter(csvFile, true)) {
+                fw.write(String.format("ClosestPairOfPoints,%d,%d,%d,%d,%.8f\n",
+                    n,
+                    metrics.getTimeNanoseconds(),
+                    metrics.getComparisons(),
+                    metrics.getMaxDepth(),
+                    dist));
+            } catch (java.io.IOException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.printf("ClosestPairOfPoints,%d,%d,%d,%d,%.8f\n",
+                n,
+                metrics.getTimeNanoseconds(),
+                metrics.getComparisons(),
+                metrics.getMaxDepth(),
+                dist);
+        }
+        System.out.println("Results written to " + csvFile + "\n");
     }
 
     public static void main(String[] args) {
         testMergeSort();
         testQuickSort();
         testDeterministicSelect();
+        testClosestPairOfPoints();
     }
 }
