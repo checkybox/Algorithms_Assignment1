@@ -11,18 +11,18 @@ public class Metrics {
 
     /* time-related fields and methods */
     private long startTime;
-    private long timeMilliseconds;
+    private long timeNanoseconds;
 
     public void startTimer() {
-        startTime = System.currentTimeMillis();
+        startTime = System.nanoTime();
     }
 
     public void stopTimer() {
-        timeMilliseconds = System.currentTimeMillis() - startTime;
+        timeNanoseconds = System.nanoTime() - startTime;
     }
 
-    public long getTimeMilliseconds() {
-        return timeMilliseconds;
+    public long getTimeNanoseconds() {
+        return timeNanoseconds;
     }
 
     public void incrementComparisons() {
@@ -70,12 +70,12 @@ public class Metrics {
         currentDepth = 0;
         maxDepth = 0;
         startTime = 0;
-        timeMilliseconds = 0;
+        timeNanoseconds = 0;
     }
 
-    public void writeCsv(String filename, int n, long timeMillis) {
+    public void writeCsv(String filename, int n, long timeNanos) {
         try (FileWriter fw = new FileWriter(filename, true)) {
-            fw.write(n + "," + timeMillis + "," +
+            fw.write(n + "," + timeNanos + "," +
                     getComparisons() + "," +
                     getSwaps() + "," +
                     getMaxDepth() + "\n");

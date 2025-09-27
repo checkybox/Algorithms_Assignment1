@@ -51,19 +51,19 @@ public class MetricsTest {
     void testTimerMethods() throws InterruptedException {
         Metrics metrics = new Metrics();
         metrics.startTimer();
-        Thread.sleep(50); // sleep for 50ms
+        Thread.sleep(0, 500000); // sleep for 0.5ms
         metrics.stopTimer();
-        long elapsed = metrics.getTimeMilliseconds();
-        assertTrue(elapsed >= 50 && elapsed < 200, "Timer should measure elapsed time in ms");
+        long elapsed = metrics.getTimeNanoseconds();
+        assertTrue(elapsed >= 500000 && elapsed < 5000000, "Timer should measure elapsed time in ns");
     }
 
     @Test
     void testTimerReset() throws InterruptedException {
         Metrics metrics = new Metrics();
         metrics.startTimer();
-        Thread.sleep(10);
+        Thread.sleep(0, 100000); // sleep for 0.1ms
         metrics.stopTimer();
         metrics.reset();
-        assertEquals(0, metrics.getTimeMilliseconds(), "Timer should reset to 0");
+        assertEquals(0, metrics.getTimeNanoseconds(), "Timer should reset to 0");
     }
 }
