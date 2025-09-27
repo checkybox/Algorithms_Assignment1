@@ -23,10 +23,10 @@ public class MetricsTest {
     @Test
     void testDepthTracking() {
         Metrics metrics = new Metrics();
-        metrics.enterRecursion(); // depth = 1, max = 1
-        metrics.enterRecursion(); // depth = 2, max = 2
-        metrics.enterRecursion(); // depth = 3, max = 3
-        metrics.exitRecursion();  // depth = 2
+        metrics.enterRecursion();
+        metrics.enterRecursion();
+        metrics.enterRecursion();
+        metrics.exitRecursion();
         assertEquals(2, metrics.getCurrentDepth());
         assertEquals(3, metrics.getMaxDepth());
     }
@@ -45,5 +45,25 @@ public class MetricsTest {
         assertEquals(0, metrics.getSwaps());
         assertEquals(0, metrics.getCurrentDepth());
         assertEquals(0, metrics.getMaxDepth());
+    }
+
+    @Test
+    void testTimerMethods() throws InterruptedException {
+        Metrics metrics = new Metrics();
+        metrics.startTimer();
+        Thread.sleep(50); // sleep for 50ms
+        metrics.stopTimer();
+        long elapsed = metrics.getTimeMilliseconds();
+        assertTrue(elapsed >= 50 && elapsed < 200, "Timer should measure elapsed time in ms");
+    }
+
+    @Test
+    void testTimerReset() throws InterruptedException {
+        Metrics metrics = new Metrics();
+        metrics.startTimer();
+        Thread.sleep(10);
+        metrics.stopTimer();
+        metrics.reset();
+        assertEquals(0, metrics.getTimeMilliseconds(), "Timer should reset to 0");
     }
 }

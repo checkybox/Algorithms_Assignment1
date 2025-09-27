@@ -9,6 +9,22 @@ public class Metrics {
     private int currentDepth;
     private int maxDepth;
 
+    /* time-related fields and methods */
+    private long startTime;
+    private long timeMilliseconds;
+
+    public void startTimer() {
+        startTime = System.currentTimeMillis();
+    }
+
+    public void stopTimer() {
+        timeMilliseconds = System.currentTimeMillis() - startTime;
+    }
+
+    public long getTimeMilliseconds() {
+        return timeMilliseconds;
+    }
+
     public void incrementComparisons() {
         comparisons++;
     }
@@ -53,6 +69,8 @@ public class Metrics {
         swaps = 0;
         currentDepth = 0;
         maxDepth = 0;
+        startTime = 0;
+        timeMilliseconds = 0;
     }
 
     public void writeCsv(String filename, int n, long timeMillis) {
