@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.algorithms.MergeSort;
+import org.example.algorithms.QuickSort;
 import util.Metrics;
 import java.util.Random;
 
@@ -43,7 +44,29 @@ public class Main {
         System.out.println("Results written to " + csvFile);
     }
 
+    public static void testQuickSort() {
+        int[] sizes = {10, 100, 500, 1000, 5000, 10000, 50000, 100000};
+        String csvFile = "quicksort_results.csv";
+        initializeCsv(csvFile, "QuickSort");
+        System.out.println("QuickSort,array size,time(ns),comparisons,swaps,maxdepth");
+        for (int n : sizes) {
+            int[] arr = generateRandomArray(n);
+            Metrics metrics = new Metrics();
+            QuickSort.sort(arr, metrics);
+            metrics.writeCsv(csvFile, n, metrics.getTimeNanoseconds());
+            System.out.printf("QuickSort,%d,%d,%d,%d,%d\n",
+                n,
+                metrics.getTimeNanoseconds(),
+                metrics.getComparisons(),
+                metrics.getSwaps(),
+                metrics.getMaxDepth()
+            );
+        }
+        System.out.println("Results written to " + csvFile);
+    }
+
     public static void main(String[] args) {
         testMergeSort();
+        testQuickSort();
     }
 }
