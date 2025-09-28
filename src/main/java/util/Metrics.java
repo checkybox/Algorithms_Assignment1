@@ -73,9 +73,9 @@ public class Metrics {
         timeNanoseconds = 0;
     }
 
-    public void writeCsv(String filename, int n, long timeNanos) {
+    public void writeCsv(String filename, String algorithmName, int n, long timeNanos) {
         try (FileWriter fw = new FileWriter(filename, true)) {
-            fw.write(n + "," + timeNanos + "," +
+            fw.write(algorithmName + "," + n + "," + timeNanos + "," +
                     getComparisons() + "," +
                     getSwaps() + "," +
                     getMaxDepth() + "\n");
