@@ -44,7 +44,7 @@ public class Main {
     }
 
     public static void testMergeSort() {
-        int[] sizes = {10, 100, 500, 1000, 5000, 10000, 50000, 100000};
+        int[] sizes = {10, 100, 500, 1000, 5000, 10000, 20000, 30000, 40000, 50000, 100000, 500000, 1000000};
         String csvFile = "mergesort_results.csv";
         initializeCsv(csvFile, "MergeSort");
         System.out.println("MergeSort,array size,time(ns),comparisons,swaps,maxdepth");
@@ -52,7 +52,7 @@ public class Main {
             int[] arr = generateRandomArray(n);
             Metrics metrics = new Metrics();
             MergeSort.sort(arr, metrics);
-            metrics.writeCsv(csvFile, n, metrics.getTimeNanoseconds());
+            metrics.writeCsv(csvFile, "MergeSort", n, metrics.getTimeNanoseconds());
             System.out.printf("MergeSort,%d,%d,%d,%d,%d\n",
                 n,
                 metrics.getTimeNanoseconds(),
@@ -65,7 +65,7 @@ public class Main {
     }
 
     public static void testQuickSort() {
-        int[] sizes = {10, 100, 500, 1000, 5000, 10000, 50000, 100000};
+        int[] sizes = {10, 100, 500, 1000, 5000, 10000, 20000, 30000, 40000, 50000, 100000, 500000, 1000000};
         String csvFile = "quicksort_results.csv";
         initializeCsv(csvFile, "QuickSort");
         System.out.println("QuickSort,array size,time(ns),comparisons,swaps,maxdepth");
@@ -73,7 +73,7 @@ public class Main {
             int[] arr = generateRandomArray(n);
             Metrics metrics = new Metrics();
             QuickSort.sort(arr, metrics);
-            metrics.writeCsv(csvFile, n, metrics.getTimeNanoseconds());
+            metrics.writeCsv(csvFile, "QuickSort", n, metrics.getTimeNanoseconds());
             System.out.printf("QuickSort,%d,%d,%d,%d,%d\n",
                 n,
                 metrics.getTimeNanoseconds(),
@@ -86,7 +86,7 @@ public class Main {
     }
 
     public static void testDeterministicSelect() {
-        int[] sizes = {10, 100, 500, 1000, 5000, 10000, 50000, 100000};
+        int[] sizes = {10, 100, 500, 1000, 5000, 10000, 20000, 30000, 40000, 50000, 100000, 500000, 1000000};
         String csvFile = "deterministicselect_results.csv";
         initializeCsv(csvFile, "DeterministicSelect");
         System.out.println("DeterministicSelect,array size,time(ns),comparisons,swaps,maxdepth");
@@ -95,7 +95,7 @@ public class Main {
             int k = n / 2; // median (0-based)
             Metrics metrics = new Metrics();
             int val = DeterministicSelect.select(arr, k, metrics);
-            metrics.writeCsv(csvFile, n, metrics.getTimeNanoseconds());
+            metrics.writeCsv(csvFile, "DeterministicSelect", n, metrics.getTimeNanoseconds());
             System.out.printf("DeterministicSelect,%d,%d,%d,%d,%d\n",
                 n,
                 metrics.getTimeNanoseconds(),
@@ -108,7 +108,7 @@ public class Main {
     }
 
     public static void testClosestPairOfPoints() {
-        int[] sizes = {10, 100, 500, 1000, 5000, 10000};
+        int[] sizes = {10, 100, 500, 1000, 5000, 10000, 20000, 30000, 40000, 50000, 100000, 500000, 1000000};
         String csvFile = "closestpair_results.csv";
         initializeCsv(csvFile, "ClosestPairOfPoints");
         System.out.println("ClosestPairOfPoints,array size,time(ns),comparisons,maxdepth,distance");
@@ -181,7 +181,7 @@ public class Main {
                 for (int i = 0; i < size; i++) arr[i] = random.nextInt(100000);
                 MergeSort.sort(arr, metrics);
                 writeCsvHeader(csvFile, "MergeSort");
-                metrics.writeCsv(csvFile, size, metrics.getTimeNanoseconds());
+                metrics.writeCsv(csvFile, "MergeSort", size, metrics.getTimeNanoseconds());
                 printSummary("MergeSort", size, metrics, csvFile);
                 break;
             }
@@ -190,7 +190,7 @@ public class Main {
                 for (int i = 0; i < size; i++) arr[i] = random.nextInt(100000);
                 QuickSort.sort(arr, metrics);
                 writeCsvHeader(csvFile, "QuickSort");
-                metrics.writeCsv(csvFile, size, metrics.getTimeNanoseconds());
+                metrics.writeCsv(csvFile, "QuickSort", size, metrics.getTimeNanoseconds());
                 printSummary("QuickSort", size, metrics, csvFile);
                 break;
             }
@@ -203,7 +203,7 @@ public class Main {
                 for (int i = 0; i < size; i++) arr[i] = random.nextInt(100000);
                 int val = DeterministicSelect.select(arr, k, metrics);
                 writeCsvHeader(csvFile, "DeterministicSelect");
-                metrics.writeCsv(csvFile, size, metrics.getTimeNanoseconds());
+                metrics.writeCsv(csvFile, "DeterministicSelect", size, metrics.getTimeNanoseconds());
                 printSummary("DeterministicSelect", size, metrics, csvFile);
                 System.out.println("Selected value (k=" + k + "): " + val);
                 break;
