@@ -12,7 +12,11 @@ import java.util.Arrays;
 public class Main {
     public static void initializeCsv(String filename, String algorithmName) {
         try (java.io.FileWriter fw = new java.io.FileWriter(filename)) {
-            fw.write(algorithmName + ",array size,time(ns),comparisons,swaps,maxdepth\n");
+            if (algorithmName.equals("ClosestPairOfPoints")) {
+                fw.write("ClosestPairOfPoints,array size,time(ns),comparisons,maxdepth,distance\n");
+            } else {
+                fw.write(algorithmName + ",array size,time(ns),comparisons,swaps,maxdepth\n");
+            }
         } catch (java.io.IOException e) {
             throw new RuntimeException(e);
         }

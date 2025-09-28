@@ -1,0 +1,7 @@
+ClosestPairOfPoints,array size,time(ns),comparisons,maxdepth,distance
+ClosestPairOfPoints,10,2352465,12,3,1155.60681322
+ClosestPairOfPoints,100,452944,126,7,107.98695756
+ClosestPairOfPoints,500,1702353,543,9,20.55463359
+ClosestPairOfPoints,1000,2314554,1158,10,5.85741956
+ClosestPairOfPoints,5000,6311303,6453,12,0.69125669
+ClosestPairOfPoints,10000,9117464,12970,13,0.35811374
