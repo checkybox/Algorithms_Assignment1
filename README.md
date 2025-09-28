@@ -1,5 +1,7 @@
 # Design and Analysis of Algorithms Assignment 1
 
+![Build](https://github.com/checkybox/Algorithms_Assignment1/actions/workflows/maven.yml/badge.svg)
+
 ## Learning goals
 - Implement classic divide-and-conquer algorithms with safe recursion patterns
 - Analyze running-time recurrences using Master Theorem (3 cases) and Akra–Bazzi intuition; validate
