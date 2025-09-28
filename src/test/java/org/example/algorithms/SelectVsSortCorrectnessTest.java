@@ -1,5 +1,7 @@
 package org.example.algorithms;
 
+import org.example.algorithms.DeterministicSelect;
+import org.example.algorithms.MergeSort;
 import util.Metrics;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +20,7 @@ public class SelectVsSortCorrectnessTest {
             int k = rnd.nextInt(n); // 0-based
             int[] arrCopy = Arrays.copyOf(arr, arr.length);
             Metrics metrics = new Metrics();
-            int selectResult = new DeterministicSelect().select(arrCopy, k, metrics);
+            int selectResult = DeterministicSelect.select(arrCopy, k, metrics);
 
             int[] sorted = Arrays.copyOf(arr, arr.length);
             Arrays.sort(sorted);
